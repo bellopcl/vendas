@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+	<body>
+	<h:form id="edicao">
+			CADASTRO DE PRODUTOS
+			<h:messages />
+			<h:inputHidden value="#{produtoBean.produtoSelecionado.id}" />
+			
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Descrição:" />
+				<h:inputText id="nomeProduto" value="#{produtoBean.produtoSelecionado.descricao}"  required="true"/>
+				
+				<h:outputLabel value="Estoque:" />
+				<h:inputText value="#{produtoBean.produtoSelecionado.estoque}" >
+				</h:inputText>
+				
+				<h:outputLabel value="Unidade:" />
+				<h:inputText value="#{produtoBean.produtoSelecionado.unidade}" />
+				
+				<h:outputLabel value="Valor:" />
+				<h:inputText value="#{produtoBean.produtoSelecionado.valor}" >
+				<f:convertNumber minFractionDigits="2"/>
+				</h:inputText>
+				
+			</h:panelGrid>
+			<h:commandButton value="Salvar" action="#{produtoBean.salvar}" />
+			<h:commandButton value="Novo" action="#{produtoBean.novo}" />
+		</h:form>
+		<h:form id = "lista">
+			<h:dataTable value="#{produtoBean.lista}" var="produto" border="1">
+				<f:facet name="heder"> lista de produtos</f:facet>
+				<h:column>
+					<f:facet name="header">Id</f:facet>
+					#{produto.id}
+				</h:column>
+				<h:column>
+					<f:facet name="header">Data de cadastro</f:facet>
+					#{produto.dataCadastro}
+				</h:column>
+				<h:column>
+					<f:facet name="header">Descricao</f:facet>
+					#{produto.descricao}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Estoque</f:facet>
+					#{produto.estoque}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Unidade</f:facet>
+					#{produto.unidade}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Valor</f:facet>
+					#{produto.valor}
+				</h:column>
+				<h:column>
+				<f:facet name="header">Ações</f:facet>
+				<h:commandLink  action="#{produtoBean.excluir}"  onclick="if (!confirm('Deseja realmente excluir o produto #{produto.descricao}?')) return false;">
+				<h:graphicImage library="imagens"  name="remove-icon.png"/>
+				<f:setPropertyActionListener target="#{produtoBean.produtoSelecionado}" value="#{produto}" />
+				</h:commandLink>
+				<h:commandLink>
+					<h:graphicImage library="imagens"  name="wrench-icon.png"/>
+					<f:setPropertyActionListener target="#{produtoBean.produtoSelecionado}" value="#{produto}" />
+				</h:commandLink>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+</body>
+</html>

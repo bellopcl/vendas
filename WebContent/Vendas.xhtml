@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+	<body>
+	<h:form id="edicao">
+			CADASTRO DE VENDAS
+			<h:messages />
+			<h:inputHidden value="#{vendaBean.vendaSelecionado.id}" />
+			
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Cliente:" />
+				<h:inputText id="nomeCliente" value="#{vendaBean.vendaSelecionado.cliente.id}"  required="true"/>
+
+				<h:outputLabel value="Produto" />
+				<h:inputText id="nomeProduto" value="#{vendaBean.vendaSelecionado.produto.id}" required="true" >
+				</h:inputText>
+			</h:panelGrid>
+
+			<h:commandButton value="Salvar" action="#{vendaBean.salvar}" />
+		</h:form>
+		<h:form id = "lista">
+			<h:dataTable value="#{vendaBean.lista}" var="venda" border="1">
+				<f:facet name="heder"> lista de Vendas</f:facet>
+				<h:column>
+					<f:facet name="header">Id</f:facet>
+					#{venda.id}
+				</h:column>
+				<h:column>
+					<f:facet name="header">Data da Venda</f:facet>
+					#{venda.dataVenda}
+				</h:column>
+				<h:column>
+				<f:facet name="header">Ações</f:facet>
+				<h:commandLink  action="#{vendaBean.excluir}"  onclick="if (!confirm('Deseja realmente excluir a venda #{venda.id}?')) return false;">
+				<h:graphicImage library="imagens"  name="remove-icon.png"/>
+				<f:setPropertyActionListener target="#{vendaBean.vendaSelecionado}" value="#{venda}" />
+				</h:commandLink>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+</body>
+</html>
