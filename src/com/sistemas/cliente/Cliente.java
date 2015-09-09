@@ -23,6 +23,7 @@ public class Cliente {
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
 	private float renda;
+	private float teste;
 	
 	public Cliente(){
 		
@@ -40,6 +41,14 @@ public class Cliente {
 	}
 
 
+
+	public float getTeste() {
+		return teste;
+	}
+
+	public void setTeste(float teste) {
+		this.teste = teste;
+	}
 
 	public Integer getId() {
 		return id;
